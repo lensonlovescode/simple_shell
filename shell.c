@@ -15,17 +15,25 @@ int main(int ac, char **av)
 	command = NULL;
 	length = 0;
 
-	printf("$ ");
-	N_read = getline(&command, &length, stdin);
+	while (1)
+	{
+		printf("$ ");
+		N_read = getline(&command, &length, stdin);
 
-	if (N_read == -1)
-	{
-		perror("Getline");
-		free(command);
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
+		if (N_read == -1)
+		{
+			if (command == NULL)
+			{
+				perror("getline error");
+				free(command);
+				break;
+			}
+			else
+			{
+				printf("EOF\n\b");
+				break;
+			}
+		}
 		printf("%s", command);
 	}
 }
