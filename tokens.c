@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 #include <stdio.h>
 #include <string.h>
 char **get_tokens(char *str, char *delim)
@@ -9,7 +9,7 @@ char **get_tokens(char *str, char *delim)
 
 	i = 0;
 
-	tokens = (char *)malloc(10 * sizeof(char *));
+	tokens = (char **)malloc(10 * sizeof(char *));
 	if (tokens == NULL)
 	{
 		return (NULL);
@@ -24,9 +24,10 @@ char **get_tokens(char *str, char *delim)
 		{
 			return (NULL);
 		}
-		token[i] = token;
+		strcpy(tokens[i], token);
 		token = strtok(NULL, delim);
 		i++;
 	}
+	tokens[i] = NULL;
 	return (tokens);
 }

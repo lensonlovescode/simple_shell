@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "shell.h"
 /**
  * main - main function
  * @ac: number of items in av
@@ -36,5 +37,15 @@ int main(int ac, char **av)
 			}
 		}
 		printf("%s", command);
+		char **args = get_tokens(command," \t\n");
+		create_process(args);
+
+		for (int i = 0; args[i] != NULL; i++)
+		{
+			free(args[i]);
+		}
+		free (args);
 	}
-}
+	free(command);
+	return 0;
+	}
