@@ -1,12 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "main.h"
 /**
  * main - main function
  * @ac: number of items in av
  * @av: NULL terminated array of strings
  * Return: returns 0
  */
-char **get_tokens(char *str, char *delim);
 int main(int ac, char **av)
 {
 	char *command;

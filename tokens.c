@@ -4,6 +4,7 @@
 char **get_tokens(char *str, char *delim)
 {
 	int i;
+	int j;
 	char *token;
 	char **tokens;
 
@@ -19,14 +20,20 @@ char **get_tokens(char *str, char *delim)
 
 	while (token != NULL)
 	{
-		tokens[i] = (char *)malloc(20 * sizeof(char));
+		tokens[i] = (char *)malloc((strlen(token) + 1) * sizeof(char));
 		if (tokens[i] == NULL)
 		{
+			for (int j = 0; j < i; j++)
+			{
+				free(tokens[j]);
+			}
+			free(tokens);
 			return (NULL);
 		}
-		token[i] = token;
+		tokens[i] = token;
 		token = strtok(NULL, delim);
 		i++;
 	}
+	tokens[i] = NULL;
 	return (tokens);
 }
