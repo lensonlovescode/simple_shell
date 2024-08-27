@@ -32,13 +32,12 @@ int main(int ac, char **av)
 			}
 			else
 			{
-				printf("EOF\n\b");
-				break;
+				putchar('\n');
+				exit(98);
 			}
 		}
-		printf("%s", command);
 		char **args = get_tokens(command," \t\n");
-		create_process(args);
+		checker(args);
 
 		for (int i = 0; args[i] != NULL; i++)
 		{

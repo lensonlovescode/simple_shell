@@ -19,7 +19,7 @@ char **get_tokens(char *str, char *delim)
 
 	while (token != NULL)
 	{
-		tokens[i] = (char *)malloc(20 * sizeof(char));
+		tokens[i] = (char *)malloc(1024 * sizeof(char));
 		if (tokens[i] == NULL)
 		{
 			return (NULL);
