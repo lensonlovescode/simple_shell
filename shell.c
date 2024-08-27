@@ -9,7 +9,9 @@
  */
 int main(int ac, char **av)
 {
+	int i;
 	char *command;
+	char **args;
 	size_t length;
 	size_t N_read;
 
@@ -20,7 +22,6 @@ int main(int ac, char **av)
 	{
 		printf("$ ");
 		N_read = getline(&command, &length, stdin);
-
 		if (N_read == -1)
 		{
 			if (command == NULL)
@@ -35,14 +36,16 @@ int main(int ac, char **av)
 				exit(98);
 			}
 		}
-		if (command == "")
+		if (N_read == 1 || (N_read > 1 && command[0] == '\n'))
+			continue;
+		args = get_tokens(command," \t\n");
+		if (args == NULL || args[0] == NULL)
 		{
+			free(args);
 			continue;
 		}
-		char **args = get_tokens(command," \t\n");
 		checker(args);
-
-		for (int i = 0; args[i] != NULL; i++)
+		for (i = 0; args[i] != NULL; i++)
 		{
 			free(args[i]);
 		}
@@ -50,4 +53,4 @@ int main(int ac, char **av)
 	}
 	free(command);
 	return 0;
-	}
+}
