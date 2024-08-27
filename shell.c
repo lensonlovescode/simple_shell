@@ -7,7 +7,6 @@
  * @av: NULL terminated array of strings
  * Return: returns 0
  */
-char **get_tokens(char *str, char *delim);
 int main(int ac, char **av)
 {
 	char *command;
@@ -35,6 +34,10 @@ int main(int ac, char **av)
 				putchar('\n');
 				exit(98);
 			}
+		}
+		if (command == "")
+		{
+			continue;
 		}
 		char **args = get_tokens(command," \t\n");
 		checker(args);

@@ -17,16 +17,6 @@ char *get_path(void)
 		if (strncmp(*env, "PATH=", 5) == 0)
 		{
 			path = *env + 5;
-			for (i = 0; path[i] != '\0'; i++)
-			{
-				if (path[i] == ':')
-				{
-					path[i] = '\0';
-					printf("full path:\n\n%s\n\n", path);
-					return (path);
-				}
-			}
-			printf("full path:\n\n%s\n\n", path);
 			return (path);
 		}
 		env++;

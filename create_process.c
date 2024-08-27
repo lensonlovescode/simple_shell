@@ -45,6 +45,7 @@ int handle_path_commands(char **args)
         char *path;
         char **paths;
         char *path_command;
+	int i;
 
         path = get_path();
 	if (path == NULL)
@@ -60,8 +61,12 @@ int handle_path_commands(char **args)
 		return (0);
 	}
         path_command = check_builtin(paths, args[0]);
-
-        if (path_command != NULL)
+	for (i = 0; paths[i] != NULL; i++)
+	{
+		free(paths[i]);
+	}
+	free(paths);
+	if (path_command != NULL)
         {
                 pid = fork();
                 if (pid == 0)
@@ -69,6 +74,7 @@ int handle_path_commands(char **args)
                         if (execve(path_command, args, NULL) == -1)
                         {
                                 perror("error in handle_path_commands: child process");
+				free(path_command);
                                 exit(EXIT_FAILURE);
                         }
                 }
@@ -89,6 +95,7 @@ int handle_path_commands(char **args)
                 return (1);
 		free(path_command);
 	}
+	perror(args[0]);
         return (0);
 }
 /**
@@ -111,7 +118,7 @@ int checker(char **args)
 	{
 		if (handle_path_commands(args) == 0)
 		{
-			perror("Create process: path: ");
+			return (0);
 		}
 	}
 	/* todo: handle env and exit nuiltins */
@@ -137,7 +144,6 @@ char *check_builtin(char **directories, char *command)
 		}
 		if (access(full_command, F_OK | X_OK) == 0)
 		{
-			printf("full command:\n\n%s\n\n", full_command);
 			return (full_command);
 		}
 		free(full_command);
@@ -167,6 +173,5 @@ char *path_concat(char *directory, char *command)
 	strcpy(full_path, directory);
 	strcat(full_path, "/");
 	strcat(full_path, command);
-	printf("full path:\n%s\n", full_path);
 	return (full_path);
 }
