@@ -36,4 +36,5 @@ int _strncmp(const char *str1, const char *str2, size_t n);
 char *_strcpy(char *dest, const char *src);
 char *_strcat(char *dest, const char *src);
 char *_strdup(const char *str);
+int handle_path_commands2(char *path_command, char **args);
 #endif

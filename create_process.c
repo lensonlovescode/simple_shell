@@ -52,6 +52,23 @@ int handle_path_commands(char **args)
 	for (i = 0; paths[i] != NULL; i++)
 		free(paths[i]);
 	free(paths);
+	if (handle_path_commands2(path_command, args) == 1)
+	{
+		return (1);
+	}
+	return (0);
+}
+/**
+ * handle_path_commands2 - continuation of the previous function
+ * @path_command: full comand
+ * @args: array of commands
+ * Return: returns 1 on success 0 on failure
+ */
+int handle_path_commands2(char *path_command, char **args)
+{
+	pid_t pid;
+	int status;
+
 	if (path_command != NULL)
 	{
 		pid = fork();
@@ -108,33 +125,6 @@ int checker(char **args)
 		}
 	}
 	return (0);
-}
-/**
- * check_builtin - checks for the command in the list of directories in PATH
- * @directories: array os strings of the directories
- * @command: command to be searched for
- * Return: returns a string of the full path
- */
-char *check_builtin(char **directories, char *command)
-{
-	int i = 0;
-	char *full_command;
-
-	while (directories[i] != NULL)
-	{
-		full_command = path_concat(directories[i], command);
-		if (full_command == NULL)
-		{
-			return (NULL);
-		}
-		if (access(full_command, F_OK | X_OK) == 0)
-		{
-			return (full_command);
-		}
-		free(full_command);
-		i++;
-	}
-	return (NULL);
 }
 /**
  * path_concat - appends the command to the directory name
