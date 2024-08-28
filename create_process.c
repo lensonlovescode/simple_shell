@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * create_process - create a new process
+ * create_process - create a new process for a full path
  * @args: array of strings that contains the command and its flags
  * Return: 1 if sucess, 0 otherwise.
  */
@@ -25,11 +25,9 @@ int create_process(char **args)
 	}
 	else
 	{
-		do
-		{
-	   		waitpid(pid, &status, WUNTRACED);
-		}
-		while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		do {
+			waitpid(pid, &status, WUNTRACED);
+		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 	return (1);
 }
@@ -40,63 +38,47 @@ int create_process(char **args)
  */
 int handle_path_commands(char **args)
 {
-        pid_t pid;
-        int status;
-        char *path;
-        char **paths;
-        char *path_command;
-	int i;
+	pid_t pid;
+	int status, i;
+	char *path, **paths, *path_command;
 
-        path = get_path();
-	if (path == NULL)
+	paths = get_tokens(get_path(), ":");
+	if (path == NULL || paths == NULL)
 	{
-		perror("Error: PATH environment variable not found");
-		return (0);
-	}
-        paths = get_tokens(path, ":");
-	if (paths == NULL)
-	{
-		perror("Error: Failed to tokenize PATH");
 		free(path);
 		return (0);
 	}
-        path_command = check_builtin(paths, args[0]);
+	path_command = check_builtin(paths, args[0]);
 	for (i = 0; paths[i] != NULL; i++)
-	{
 		free(paths[i]);
-	}
 	free(paths);
 	if (path_command != NULL)
-        {
-                pid = fork();
-                if (pid == 0)
-                {
-                        if (execve(path_command, args, NULL) == -1)
-                        {
-                                perror("error in handle_path_commands: child process");
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			if (execve(path_command, args, NULL) == -1)
+			{
 				free(path_command);
-                                exit(EXIT_FAILURE);
-                        }
-                }
-                else if (pid < 0)
-                {
-                        perror("error in create_process: forking");
+				exit(EXIT_FAILURE);
+			}
+		}
+		else if (pid < 0)
+		{
 			free(path_command);
 			return (0);
 		}
-                else
-                {
-                        do
-                        {
-                        	waitpid(pid, &status, WUNTRACED);
-                        }
-                        while (!WIFEXITED(status) && !WIFSIGNALED(status));
-                }
-                return (1);
+		else
+		{
+			do {
+				waitpid(pid, &status, WUNTRACED);
+			} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		}
+		return (1);
 		free(path_command);
 	}
 	perror(args[0]);
-        return (0);
+	return (0);
 }
 /**
  * checker - checks whether a command is a full path
@@ -125,11 +107,10 @@ int checker(char **args)
 			return (0);
 		}
 	}
-	/* todo: handle env and exit nuiltins */
 	return (0);
 }
 /**
- * check_builtin = checks for the command in the list of directories in PATH
+ * check_builtin - checks for the command in the list of directories in PATH
  * @directories: array os strings of the directories
  * @command: command to be searched for
  * Return: returns a string of the full path
@@ -156,11 +137,10 @@ char *check_builtin(char **directories, char *command)
 	return (NULL);
 }
 /**
- * path_concat - appends the command entered to the directory string including /
+ * path_concat - appends the command to the directory name
  * @directory: the directory
  * @command: the command to be appended
  * Return: returns the full path string
- *
  */
 char *path_concat(char *directory, char *command)
 {

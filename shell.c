@@ -12,12 +12,10 @@ int main(int ac, char **av)
 	int i;
 	char *command;
 	char **args;
-	size_t length;
-	size_t N_read;
+	size_t length, N_read;
 
 	command = NULL;
 	length = 0;
-
 	while (1)
 	{
 		printf("$ ");
@@ -38,7 +36,7 @@ int main(int ac, char **av)
 		}
 		if (N_read == 1 || (N_read > 1 && command[0] == '\n'))
 			continue;
-		args = get_tokens(command," \t\n");
+		args = get_tokens(command, " \t\n");
 		if (args == NULL || args[0] == NULL)
 		{
 			free(args);
@@ -46,11 +44,9 @@ int main(int ac, char **av)
 		}
 		checker(args);
 		for (i = 0; args[i] != NULL; i++)
-		{
 			free(args[i]);
-		}
-		free (args);
+		free(args);
 	}
 	free(command);
-	return 0;
+	return (0);
 }

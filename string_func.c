@@ -13,22 +13,7 @@ int _strlen(const char *str)
 	{
 		length++;
 	}
-	return length;
-}
-/**
- * _strcmp - compares two strings
- * @str1: the first string
- * @str2: the second string
- * Return: how much the strings differ, 0 if strings are the same
- */
-int _strcmp(const char *str1, const char *str2)
-{
-	while (*str1 && (*str1 == *str2))
-	{
-		str1++;
-		str2++;
-	}
-	return (*(unsigned char *)str1 - *(unsigned char *)str2);
+	return (length);
 }
 /**
  * _strcpy - copies a string from src to dest
@@ -39,8 +24,8 @@ int _strcmp(const char *str1, const char *str2)
 char *_strcpy(char *dest, const char *src)
 {
 	char *ptr;
-	ptr = dest;
 
+	ptr = dest;
 	while (*src != '\0')
 	{
 		*dest++ = *src++;
@@ -58,6 +43,7 @@ char *_strcpy(char *dest, const char *src)
 char *_strcat(char *dest, const char *src)
 {
 	char *ptr;
+
 	ptr = dest + _strlen(dest);
 	while (*src)
 	{

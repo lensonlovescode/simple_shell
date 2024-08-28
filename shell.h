@@ -8,7 +8,11 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+/**
+ * struct builtin - Struct to represent a shell builtin commands
+ * @env: builtin command for printing the environment
+ * @exit: builtin command for exiting the shell
+ */
 struct builtin
 {
 	char *env;
