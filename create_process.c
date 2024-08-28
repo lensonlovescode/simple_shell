@@ -152,15 +152,15 @@ char *path_concat(char *directory, char *command)
 	int length;
 	char *full_path;
 
-	length = _strlen(directory) + strlen(command) + 2;
+	length = _strlen(directory) + _strlen(command) + 2;
 
 	full_path = malloc(length * sizeof(char));
 	if (full_path == NULL)
 	{
 		return (NULL);
 	}
-	strcpy(full_path, directory);
-	strcat(full_path, "/");
-	strcat(full_path, command);
+	_strcpy(full_path, directory);
+	_strcat(full_path, "/");
+	_strcat(full_path, command);
 	return (full_path);
 }
