@@ -114,6 +114,10 @@ int checker(char **args)
 		}
 		return (1);
 	}
+	else if (handle_builtin_commands(args) == 1)
+	{
+		return (1);
+	}
 	else
 	{
 		if (handle_path_commands(args) == 0)
@@ -163,7 +167,7 @@ char *path_concat(char *directory, char *command)
 	int length;
 	char *full_path;
 
-	length = strlen(directory) + strlen(command) + 2;
+	length = _strlen(directory) + strlen(command) + 2;
 
 	full_path = malloc(length * sizeof(char));
 	if (full_path == NULL)

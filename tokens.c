@@ -7,7 +7,7 @@ char **get_tokens(char *str, char *delim)
 
 	i = 0;
 	capacity = 10;
-	str_copy = strdup(str);
+	str_copy = _strdup(str);
 	if (str_copy == NULL)
 		return (NULL);
 	tokens = malloc(capacity * sizeof(char *));
@@ -35,7 +35,7 @@ char **get_tokens(char *str, char *delim)
 			}
 			tokens = new_tokens;
 		}
-		tokens[i] = strdup(token);
+		tokens[i] = _strdup(token);
 		if (tokens[i] == NULL)
 		{
 			for (j = 0; j < i; j++)

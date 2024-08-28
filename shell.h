@@ -4,9 +4,16 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
+
+struct builtin
+{
+	char *env;
+	char *exit;
+};
 
 extern char **environ;
 
@@ -17,4 +24,12 @@ char *get_path(void);
 char **get_tokens(char *str, char *delim);
 int checker(char **args);
 int handle_path_commands(char **args);
+int handle_builtin_commands(char **args);
+void print_env(void);
+int _strlen(const char *str);
+int _strcmp(const char *str1, const char *str2);
+int _strncmp(const char *str1, const char *str2, size_t n);
+char *_strcpy(char *dest, const char *src);
+char *_strcat(char *dest, const char *src);
+char *_strdup(const char *str);
 #endif

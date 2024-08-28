@@ -14,7 +14,7 @@ char *get_path(void)
 
 	while (*env != NULL)
 	{
-		if (strncmp(*env, "PATH=", 5) == 0)
+		if (_strncmp(*env, "PATH=", 5) == 0)
 		{
 			path = *env + 5;
 			return (path);
