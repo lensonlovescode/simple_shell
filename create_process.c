@@ -25,9 +25,11 @@ int create_process(char **args)
 	}
 	else
 	{
-		do {
-			waitpid(pid, &status, WUNTRACED);
-		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+		if (waitpid(pid, &status, 0) == -1)
+		{
+			perror("error in waitpid");
+			return (0);
+		}
 	}
 	return (1);
 }
@@ -102,9 +104,11 @@ int handle_path_commands2(char *path_command, char **args)
 		}
 		else
 		{
-			do {
-				waitpid(pid, &status, WUNTRACED);
-			} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+			if (waitpid(pid, &status, 0) == -1)
+			{
+				perror("error in waitpid");
+				return (0);
+			}
 		}
 		free(path_command);
 		return (1);
