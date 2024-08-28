@@ -42,15 +42,30 @@ int handle_path_commands(char **args)
 	int status, i;
 	char *path, **paths, *path_command;
 
-	paths = get_tokens(get_path(), ":");
-	if (path == NULL || paths == NULL)
+	path = get_path();
+	if (path == NULL)
 	{
+		return (0);
+	}
+	paths = get_tokens(path, ":");
+	if (paths == NULL)
+	{
+		for (i = 0; paths[i] != NULL; i++)
+		{
+			free(paths[i]);
+		}
 		free(path);
 		return (0);
 	}
 	path_command = check_builtin(paths, args[0]);
+	if (path_command == NULL)
+	{
+		return (0);
+	}
 	for (i = 0; paths[i] != NULL; i++)
+	{
 		free(paths[i]);
+	}
 	free(paths);
 	if (handle_path_commands2(path_command, args) == 1)
 	{
@@ -91,8 +106,8 @@ int handle_path_commands2(char *path_command, char **args)
 				waitpid(pid, &status, WUNTRACED);
 			} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 		}
-		return (1);
 		free(path_command);
+		return (1);
 	}
 	perror(args[0]);
 	return (0);
