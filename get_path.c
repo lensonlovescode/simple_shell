@@ -5,7 +5,6 @@
 */
 char *get_path(void)
 {
-	int i;
 	char **env;
 	char *path;
 

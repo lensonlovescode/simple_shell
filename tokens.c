@@ -9,7 +9,7 @@ char **get_tokens(char *str, char *delim)
 {
         int i, j, capacity;
         char *token, *str_copy;
-        char **tokens, **new_tokens;
+        char **tokens;
 
         i = 0;
         capacity = _strlen(str);

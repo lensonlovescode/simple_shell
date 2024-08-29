@@ -40,8 +40,7 @@ int create_process(char **args)
  */
 int handle_path_commands(char **args)
 {
-	pid_t pid;
-	int status, i;
+	int i;
 	char *path, **paths, *path_command;
 
 	path = get_path();

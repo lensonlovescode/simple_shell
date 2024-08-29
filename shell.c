@@ -7,12 +7,12 @@
  * @av: NULL terminated array of strings
  * Return: returns 0
  */
-int main(int ac, char **av)
+int main(void)
 {
-	int i;
+	int i, N_read;
 	char *command;
 	char **args;
-	size_t length, N_read;
+	size_t length;
 
 	command = NULL;
 	length = 0;
