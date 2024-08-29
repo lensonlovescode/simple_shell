@@ -18,7 +18,7 @@ int main(void)
 	length = 0;
 	while (1)
 	{
-		printf("($) ");
+		printf("$ ");
 		N_read = getline(&command, &length, stdin);
 		if (N_read == -1)
 		{
