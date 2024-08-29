@@ -168,3 +168,4 @@ char *path_concat(char *directory, char *command)
 	_strcat(full_path, command);
 	return (full_path);
 }
+

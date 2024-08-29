@@ -23,3 +23,4 @@ char *get_path(void)
 	}
 	return (NULL);
 }
+

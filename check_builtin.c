@@ -26,3 +26,4 @@ char *check_builtin(char **directories, char *command)
 	}
 	return (NULL);
 }
+
